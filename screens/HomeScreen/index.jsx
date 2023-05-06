@@ -14,14 +14,12 @@ export const HomeScreen = () => {
   const navigation = useNavigation()
   const menuProduct = useSelector((state) => state.menu.items)
   const [scanner, setScanner] = useState(false)
-  const [shopName, setShopName] = useState('')
-
+  const shopName = useSelector((state) => state.shop.shopInfo.shopName)
   useLayoutEffect(() => {
     navigation.setOptions({
       headerShown: false
     })
   }, [])
-
   return (
     <SafeAreaView style={SafeAreaAndroid.AndroidSafeArea}>
 
@@ -45,7 +43,7 @@ export const HomeScreen = () => {
 
       {/*Screen*/}
 
-      {scanner ? <Scanner setShopName={setShopName} setScanner={setScanner} /> :
+      {scanner ? <Scanner setScanner={setScanner} /> :
         !scanner && <ScrollView contentContainerStyle={{ paddingHorizontal: 3, paddingVertical: 20 }} >
           {
             menuProduct?.map((e, index) => <ProductCard key={index} id={e._id} PhotoURL={e.photo?.asset ? URLfor(e.photo.asset._ref).url() : e.photo} productName={e.name} price={e.price} />)

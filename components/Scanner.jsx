@@ -5,10 +5,10 @@ import { client } from "../sanity"
 import { emptyAllCart } from '../store/cart'
 import { addToMenu } from '../store/menu'
 import { useDispatch } from 'react-redux'
+import { addShop } from './../store/shop'
 export const Scanner = (props) => {
 
-    const { setShopName, setScanner } = props
-
+    const { setScanner } = props
     const [cammeraPermission, setCammeraPermission] = useState(null)
     const dispatch = useDispatch()
     // const [scannerData, setScannerData] = useState("")
@@ -26,7 +26,10 @@ export const Scanner = (props) => {
           }
         }[0]`).then((data) => {
             if (data.length != 0) {
-                setShopName(data.name)
+                dispatch(addShop({
+                    shopName: data.name,
+                    shopId: id
+                }))
                 dispatch(addToMenu(data.product))
                 dispatch(emptyAllCart())
                 setScanner(false)

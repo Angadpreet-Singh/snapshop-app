@@ -11,7 +11,7 @@ import * as Progress from 'react-native-progress';
 import { useDispatch } from "react-redux";
 import { emptyAllCart } from "../../store/cart";
 import { emptyAllMenu } from "../../store/menu";
-
+import { removeShop } from "../../store/shop";
 export const CartScreen = () => {
 
     const navigation = useNavigation()
@@ -19,6 +19,7 @@ export const CartScreen = () => {
     const [loading, setLoading] = useState(false)
     const [localStorage, setLocalStotage] = useState({})
     const cartproducts = useSelector((state) => state.cart.items)
+    const shopId = useSelector((state) => state.shop.shopInfo.shopId)
     const dispatch = useDispatch()
 
     const calculateTotalPrice = () => {
@@ -66,6 +67,7 @@ export const CartScreen = () => {
             _type: 'order',
             orderStatus: false,
             totalPrice: totalprice,
+            shopId: shopId,
             order: orderProducts
         }
 
@@ -77,6 +79,7 @@ export const CartScreen = () => {
         })
         dispatch(emptyAllCart())
         dispatch(emptyAllMenu())
+        dispatch(removeShop())
     }
 
     useEffect(() => {
