@@ -6,11 +6,11 @@ import { addToMenu } from "../store/menu"
 import { useSelector, useDispatch } from "react-redux"
 export const CartItem = (props) => {
 
-    const { id, PhotoURL, productName, price } = props
+    const { id, PhotoURL, productName, price, itemCount } = props
     const dispatch = useDispatch()
     const menuProducts = useSelector(state => state.menu.items)
     const cartProducts = useSelector(state => state.cart.items)
-    const [count, setCount] = useState(1)
+    const [count, setCount] = useState(itemCount)
 
     const filterProducts = () => {
         let newList = JSON.parse(JSON.stringify(menuProducts))

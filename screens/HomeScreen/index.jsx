@@ -15,11 +15,14 @@ export const HomeScreen = () => {
   const menuProduct = useSelector((state) => state.menu.items)
   const [scanner, setScanner] = useState(false)
   const shopName = useSelector((state) => state.shop.shopInfo.shopName)
+  const cartProduct = useSelector((state) => state.cart.items)
+
   useLayoutEffect(() => {
     navigation.setOptions({
       headerShown: false
     })
   }, [])
+
   return (
     <SafeAreaView style={SafeAreaAndroid.AndroidSafeArea}>
 
@@ -37,14 +40,21 @@ export const HomeScreen = () => {
         </View>
         <View className="flex-row space-x-5 mr-2">
           <TouchableOpacity><CurrencyBangladeshiIcon onPress={() => { navigation.navigate('Token') }} size={50} color="#AAC8A7" /></TouchableOpacity>
-          <TouchableOpacity ><ShoppingCartIcon onPress={() => { navigation.navigate('Cart') }} height={50} width={50} color="#AAC8A7" /></TouchableOpacity>
+          <TouchableOpacity onPress={() => { navigation.navigate('Cart') }}>
+            <View>
+              {cartProduct.length != 0 && <View className="absolute right-1 z-30 bg-red-400 p-1 rounded-full w-7 flex items-center">
+                <Text className="font-bold">{cartProduct.length}</Text>
+              </View>}
+              <ShoppingCartIcon height={50} width={50} color="#AAC8A7" />
+            </View>
+          </TouchableOpacity>
         </View>
       </View>
 
       {/*Screen*/}
 
       {scanner ? <Scanner setScanner={setScanner} /> :
-        !scanner && <ScrollView contentContainerStyle={{ paddingHorizontal: 3, paddingVertical: 20 }} >
+        <ScrollView contentContainerStyle={{ paddingHorizontal: 3, paddingVertical: 20 }} >
           {
             menuProduct?.map((e, index) => <ProductCard key={index} id={e._id} PhotoURL={e.photo?.asset ? URLfor(e.photo.asset._ref).url() : e.photo} productName={e.name} price={e.price} />)
           }

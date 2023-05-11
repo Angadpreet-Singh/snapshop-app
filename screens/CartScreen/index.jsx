@@ -104,7 +104,7 @@ export const CartScreen = () => {
                 <Text className='text-gray-600 text-lg font-bold'>CART</Text>
             </View>
             <ScrollView contentContainerStyle={{ paddingHorizontal: 3, paddingVertical: 5 }} >
-                {cartproducts.map((e, index) => <CartItem key={index} id={e.productId} PhotoURL={e.PhotoURL} productName={e.productName} price={e.price} />)}
+                {cartproducts.map((e, index) => <CartItem key={index} id={e.productId} PhotoURL={e.PhotoURL} productName={e.productName} price={e.price} itemCount={e.count} />)}
             </ScrollView>
             {totalprice != 0 && <View className='flex items-center'>
                 <View className='bg-blue-100 w-full rounded-md'>
