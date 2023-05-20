@@ -56,7 +56,11 @@ export const HomeScreen = () => {
       {scanner ? <Scanner setScanner={setScanner} /> :
         <ScrollView contentContainerStyle={{ paddingHorizontal: 3, paddingVertical: 20 }} >
           {
-            menuProduct?.map((e, index) => <ProductCard key={index} id={e._id} PhotoURL={e.photo?.asset ? URLfor(e.photo.asset._ref).url() : e.photo} productName={e.name} price={e.price} />)
+            menuProduct.length != 0 ? menuProduct?.map((e, index) => <ProductCard key={index} id={e._id} PhotoURL={e.photo?.asset ? URLfor(e.photo.asset._ref).url() : e.photo} productName={e.name} price={e.price} />) : <View className="flex items-center">
+              <Image className="m-64"
+                source={require("../../assets/images/NoProducts.png")}
+              />
+            </View>
           }
         </ScrollView>}
     </SafeAreaView>
