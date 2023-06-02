@@ -32,20 +32,6 @@ export const TokenScreen = () => {
         }
     }
 
-    // const realTimeUpdate = () => {
-    //     const query = "*[_type=='order' && orderStatus == false] | order(_createdAt)"
-    //     const params = {}
-    //     let id = localStorage.token
-    //     const subscription = client.listen(query, params)
-    //         .subscribe(update => {
-    //             getAllOrders()
-    //         })
-    // }
-
-    // useEffect(() => {
-    //     realTimeUpdate()
-    // }, [])
-
     useEffect(() => {
         getData()
         getAllOrders()
@@ -63,8 +49,10 @@ export const TokenScreen = () => {
                 <Text className='text-gray-600 text-lg font-bold'>ORDER DETAILS</Text>
             </View>
             <View className='mt-4 p-3'>
-                <Text className='text-xl font-bold text-gray-500'>Order Number : {localStorage.token}</Text>
-                <Text className='text-xl font-bold text-gray-500'>Price : {"\u20B9" + " " + localStorage.totalprice}</Text>
+                <Text className='text-lg font-bold text-gray-500'>Order Number : {localStorage.token}</Text>
+                <Text className='text-xl font-bold text-gray-500 mt-2 mb-2'>Order Details : </Text>
+                {localStorage?.order?.map((e) => <Text key={e._key} className='text-xl font-bold text-gray-500' >{e.productName + " x " + e.count + " = " + Number(e.price) * Number(e.count)}</Text>)}
+                <Text className='text-xl font-bold text-gray-500 mt-5'>Price : {"\u20B9" + " " + localStorage.totalprice}</Text>
                 <Text className='text-xl font-bold text-gray-500'>Order Status : {queueNumber == 0 ? "Packed" : "Under Process"}</Text>
                 {queueNumber != 0 && <Text className='text-xl font-bold text-gray-500'>Queue Number : {queueNumber}</Text>}
             </View>

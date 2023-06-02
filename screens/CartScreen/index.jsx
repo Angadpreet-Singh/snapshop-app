@@ -74,7 +74,8 @@ export const CartScreen = () => {
         client.create(doc).then((res) => {
             storeData({
                 token: res._id,
-                totalprice
+                totalprice,
+                order: orderProducts
             })
         })
         dispatch(emptyAllCart())
